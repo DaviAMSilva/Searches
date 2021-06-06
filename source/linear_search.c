@@ -1,9 +1,13 @@
 #include "linear_search.h"
 
+
+
+
+
 // verifica cada item individualmente, um por um
 size_t *linear_search(void *ptr, size_t num, size_t size, void *data, int (*compare)(const void *, const void *))
 {
-    size_t *result = calloc(num, sizeof(size_t) + 1); // vetor que guarda os resultados + a quantidade no índice 0
+    size_t *result = calloc(num + 1, sizeof(size_t)); // vetor que guarda os resultados + a quantidade no índice 0
     size_t index = 0;                                 // indíce do vetor de retorno
 
 
@@ -15,7 +19,7 @@ size_t *linear_search(void *ptr, size_t num, size_t size, void *data, int (*comp
 
 
     // loop para cada item, quando for igual adicionar no próximo local do vetor e aumentar index
-    for (int i = 0; i < num; i++)
+    for (size_t i = 0; i < num; i++)
     {
         if (compare(ptr + i * size, data) == 0)
         {
@@ -31,7 +35,7 @@ size_t *linear_search(void *ptr, size_t num, size_t size, void *data, int (*comp
 
 
     // realoca o vetor evitando erros
-    size_t *temp = realloc(result, index * sizeof(size_t) + 1);
+    size_t *temp = realloc(result, (index + 1) * sizeof(size_t));
 
     if (temp != NULL)
     {

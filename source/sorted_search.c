@@ -1,10 +1,14 @@
 #include "sorted_search.h"
 
+
+
+
+
 // verifica cada item individualmente, um por um, entretanto é preciso que o vetor esteja ordenado e a pesquisa é
 // finalizada quando achamos um item que é "melhor" que o item que se procura
 size_t *sorted_search(void *ptr, size_t num, size_t size, void *data, int (*compare)(const void *, const void *))
 {
-    size_t *result = calloc(num, sizeof(size_t) + 1); // vetor que guarda os resultados + a quantidade no índice 0
+    size_t *result = calloc(num + 1, sizeof(size_t)); // vetor que guarda os resultados + a quantidade no índice 0
     size_t index = 0;                                 // indíce do vetor de retorno
 
 
@@ -16,7 +20,7 @@ size_t *sorted_search(void *ptr, size_t num, size_t size, void *data, int (*comp
 
 
     // verificamos se cada item é "melhor" ou igual ao item anterior (ordenado), caso contrário retorna NULL
-    for (int i = 1; i < num; i++)
+    for (size_t i = 1; i < num; i++)
     {
         if (compare(ptr + i * size, ptr + (i - 1) * size) < 0)
             return NULL;
@@ -25,7 +29,7 @@ size_t *sorted_search(void *ptr, size_t num, size_t size, void *data, int (*comp
 
 
     // loop para cada item, quando for igual adicionar no próximo local do vetor e aumentar index
-    for (int i = 0; i < num; i++)
+    for (size_t i = 0; i < num; i++)
     {
         // guardando o resultado
         int cmp = compare(ptr + i * size, data);
@@ -49,7 +53,7 @@ size_t *sorted_search(void *ptr, size_t num, size_t size, void *data, int (*comp
 
 
     // realoca o vetor evitando erros
-    size_t *temp = realloc(result, index * sizeof(size_t) + 1);
+    size_t *temp = realloc(result, (index + 1) * sizeof(size_t));
 
     if (temp != NULL)
     {
