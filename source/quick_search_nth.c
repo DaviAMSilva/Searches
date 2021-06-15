@@ -78,13 +78,16 @@ static long quick_search_nth_recursive(void *ptr, size_t size, size_t n, int (*c
 
     long result = 0;
 
-    for (int i = 0; i <= n; i++)
-    {
-        if (compare(ptr + i * size, ptr + n * size) <= 0)
-            result = i;
-        else
-            result = n;
-    }
+    // for (int i = 0; i <= n; i++)
+    // {
+    //     if (compare(ptr + i * size, ptr + n * size) <= 0)
+    //         result = i;
+    //     else
+    //         result = n;
+    // }
+
+    // Todo esse código pode ser substituído por:
+    result = n;
 
 	return result;
 }
